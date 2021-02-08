@@ -27,6 +27,7 @@ export default class CreateExercises extends Component {
 
 
     getUsersList(){
+
         axios.get('http://localhost:5000/users/')
         .then(response => {
 
@@ -48,6 +49,7 @@ export default class CreateExercises extends Component {
     }
 
     onSubmit(e){
+
         e.preventDefault();
 
         const exercise = {
@@ -63,18 +65,18 @@ export default class CreateExercises extends Component {
         .then(res => console.log(res.data))
         .catch(error => console.log(error));
 
-        // window.location = '/';
+        window.location = '/';
     }
 
 
     render(){
         return(
             <div>
-                <h3>Create New Exercise Log</h3>
+                <h3 className="text-center">Create New Exercise Log</h3>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <label>Username: </label>
-                        <select ref="userInput"
+                        <select
                             required
                             className="form-control"
                             value={this.state.username}
@@ -86,24 +88,25 @@ export default class CreateExercises extends Component {
                             }
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <label>Description: </label>
                         <input type="text" className="form-control" value={this.state.description} onChange={ (e) => { this.onChangeItem("description", e.target.value) }} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <label>Duration (in minutes): </label>
                         <input type="text" className="form-control" value={this.state.duration} onChange={(e) => { this.onChangeItem("duration", e.target.value) }} />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <label>Date: </label>
                         <div>
-                            <DatePicker 
+                            <DatePicker
+                                className="form-control"
                                 selected={this.state.date}
                                 onChange={(date) => { this.onChangeItem("date", date) }}
                             />
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group col-md-6">
                         <input type="submit" value="Create Exercise" className="btn btn-primary" />
                     </div>
                 </form>

@@ -25,7 +25,7 @@ exports.addExcerise = async (req, res) => {
     try {
         
         await addExcerise.save();
-        res.status(200).json({msg : "succesfullly added excerises!!!", data: addExcerise});
+        res.status(200).json({success: true, msg : "succesfullly added excerises!!!", data: addExcerise});
 
     } catch (error) {
         res.status(409).json({ message: error.message});
@@ -53,7 +53,7 @@ exports.DeleteExercise = async (req, res) => {
     try {
 
         await exerciseModel.findByIdAndDelete(id);
-        res.status(200).json({msg: "Successfully deleted"});
+        res.status(200).json({success: true, msg: "Successfully deleted"});
         
     } catch (error) {
         res.status(404).json({ message: error.message});
@@ -69,7 +69,7 @@ exports.UpdateExercise = async (req, res) => {
     try {
 
         const updatedexcerise = await exerciseModel.findByIdAndUpdate(id, excerise, { new: true });
-        res.status(200).json({msg: "Successfully updated!!!", data: updatedexcerise});
+        res.status(200).json({success: true, msg: "Successfully updated!!!", data: updatedexcerise});
         
     } catch (error) {
         res.status(404).json({ message: error.message});

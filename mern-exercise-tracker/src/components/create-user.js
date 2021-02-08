@@ -10,6 +10,7 @@ export default class CreateUser extends Component {
 
         this.state = {
             username: '',
+            loading: false
         }
     }
 
@@ -20,32 +21,42 @@ export default class CreateUser extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        
+        this.setState({ loading: true })
 
         const user = {
             username: this.state.username
         }
 
-        console.log(user);
-
         axios.post('http://localhost:5000/users/add', user)
-        .then(res => console.log(res.data))
+        .then(res => {
+            
+            console.log(res.data);
+
+            if(res.data.success === true){
+                this.setState({ loading: false, username: '' });
+                alert(res.data.msg);
+            }else{
+                alert("error while saving");
+            }
+
+        })
         .catch(error => console.log(error));
         
-        this.setState({username: ''});
         // window.location = '/';
     }
 
     render(){
         return(
             <div>
-               <h3>Create New User</h3>
+               <h3 className="text-center" >Create New User</h3>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
+                    <div className="form-group col-md-4">
                         <label>Username: </label>
-                        <input type="text" className="form-control" value={this.state.username} onChange={ (e) => { this.onChangeItem("username", e.target.value) }} />
+                        <input type="text" className="form-control" value={this.state.username} onChange={ (e) => { this.onChangeItem("username", e.target.value) }} required/>
                     </div>
-                    <div className="form-group">
-                        <input type="submit" value="Create User" className="btn btn-primary" />
+                    <div className="form-group col-md-4">
+                       {this.state.loading ? <h4>Saving...</h4> : <input type="submit" value="Create User" className="btn btn-primary" /> } 
                     </div>
                 </form>
             </div> 

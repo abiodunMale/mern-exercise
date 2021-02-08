@@ -19,7 +19,7 @@ exports.addUser = async (req, res) => {
     try {
 
         await addUser.save();
-        res.status(201).json({ msg: "User added!!!", data: addUser});
+        res.status(201).json({ success: true, msg: "User added!!!", data: addUser});
     } catch (error) {
         res.status(409).json({ message: error.message});
     }
